@@ -1,10 +1,12 @@
 
 package eu.janinko.andaria.editor;
 
+import eu.janinko.Andaria.ultimasdk.files.Anims;
 import eu.janinko.Andaria.ultimasdk.files.Arts;
 import eu.janinko.Andaria.ultimasdk.files.Gumps;
 import eu.janinko.Andaria.ultimasdk.files.Hues;
 import eu.janinko.Andaria.ultimasdk.files.TileData;
+import eu.janinko.Andaria.ultimasdk.files.anims.Anim;
 import eu.janinko.Andaria.ultimasdk.files.arts.Art;
 import eu.janinko.Andaria.ultimasdk.files.graphics.Bitmap;
 import eu.janinko.Andaria.ultimasdk.files.graphics.Color;
@@ -22,11 +24,12 @@ import javax.imageio.ImageIO;
  * @author janinko
  */
 public class HueEditor {
-	private String uoPath = "/home/janinko/Ultima/hra";
+	private String uoPath = "/home/jbrazdil/Ultima/hra/";
 	private Gumps gumps;
 	private Hues hues;
 	private TileData tiledata;
 	private Arts arts;
+	private Anims anims;
 
 	private int width = 800;
 	private int height = 30;
@@ -40,17 +43,20 @@ public class HueEditor {
 	}
 
 	public void init() throws IOException {
-		File huesmul = new File(uoPath, "hues.mul");
+		File huesmul = new File("/home/janinko/Ultima/grafika/hues/"+ "hues-new.mul");
 		File artidx = new File(uoPath, "artidx.mul");
 		File artmul = new File(uoPath, "art.mul");
 		File gumpidx = new File(uoPath, "gumpidx.mul");
 		File gumpart = new File(uoPath, "gumpart.mul");
+		File animidx = new File(uoPath, "anim.idx");
+		File animmul = new File(uoPath, "anim.mul");
 		File tiledatamul = new File(uoPath, "tiledata.mul");
 
 		hues = new Hues(new FileInputStream(huesmul));
 		gumps = new Gumps(new FileInputStream(gumpidx), gumpart);
 		tiledata = new TileData(new FileInputStream(tiledatamul));
 		arts = new Arts(new FileInputStream(artidx), artmul);
+		anims = new Anims(new FileInputStream(animidx), animmul);
 	}
 	
 	public void paint(BufferedImage img, int startX, int startY, int width, int height, int rgb){
@@ -109,12 +115,20 @@ public class HueEditor {
 		return b.getImage();
 	}
 
+	public BufferedImage getColoredAnimation(int hue, int anim, int position) throws IOException{
+		Hue h = hues.getHue(hue);
+		Anim a = anims.getAnim1(anim, Anims.STAY, position);
+		Bitmap b = a.getFrame(0).getBitmap();
+		b.hue(h, false);
+		return b.getImage();
+	}
+
 	private int[] partial = {50404,50405,50406,50407,50408,50409,50410,50411,
 		50412,50413,50419,50438,50439,50448,50453,50468,50480,50499,50852,
 		50912};
 	private int[] nonpart = {50430,50431,50434,50435,50439,50449,
-		50455,50465,50466,50469,50476,50477,50480,50490,50492,50590,50690,50691,
-		50909,50910,50911,50913};
+		50455,50465,50466,50469,50476,50477,50480,50490,50492,50542,50543,50544,50545,50546,50560,
+		50590,50690,50691,50909,50910,50911,50913};
 	public void generate(int hue) throws IOException {
 		Hue h = hues.getHue(hue);
 		File dir = new File("/tmp/gumps/hue/" + hue);
@@ -150,11 +164,11 @@ public class HueEditor {
 	}
 
 	public void copy(int from, int to) {
-		hues.setHue(to, hues.getHue(from));
+		hues.setHue(to, new Hue(hues.getHue(from)));
 	}
 
 	public void save() throws IOException{
-		File huesmul = new File(uoPath, "hues.mul");
+		File huesmul = new File("/home/janinko/Ultima/grafika/hues/"+ "hues-new.mul");
 		hues.save(new FileOutputStream(huesmul));
 	}
 

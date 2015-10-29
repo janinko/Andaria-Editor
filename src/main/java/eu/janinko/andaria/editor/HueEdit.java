@@ -1,5 +1,6 @@
 package eu.janinko.andaria.editor;
 
+import eu.janinko.Andaria.ultimasdk.files.Anims;
 import eu.janinko.Andaria.ultimasdk.files.graphics.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 
 /**
  *
@@ -30,27 +32,27 @@ public class HueEdit extends javax.swing.JFrame {
 		paletaImg.setIcon(new ImageIcon(huedit.getPallete()));
 	}
 
+	private ImageIcon getImage(JTextField textField){
+		try {
+			int number = Integer.parseInt(textField.getText());
+			number += 60000;
+			BufferedImage img = huedit.getColoredItem(hueId, number);
+			ImageIcon icon = new ImageIcon(img);
+			return icon;
+		} catch (NumberFormatException ex) {
+			Logger.getLogger(HueEdit.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(HueEdit.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
 	private void showHue(){
 		ImageIcon icon = new ImageIcon(huedit.getHueImage(hueId));
 		hueLabel.setIcon(icon);
-		try {
-			ImageIcon icon2 = new ImageIcon(huedit.getColoredItem(hueId, 50521));
-			img1.setIcon(icon2);
-		} catch (IOException ex) {
-			Logger.getLogger(HueEdit.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		try {
-			ImageIcon icon2 = new ImageIcon(huedit.getColoredItem(hueId, 50522));
-			img2.setIcon(icon2);
-		} catch (IOException ex) {
-			Logger.getLogger(HueEdit.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		try {
-			ImageIcon icon2 = new ImageIcon(huedit.getColoredItem(hueId, 50523));
-			img3.setIcon(icon2);
-		} catch (IOException ex) {
-			Logger.getLogger(HueEdit.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		img1.setIcon(getImage(img1TextField));
+		img2.setIcon(getImage(img2TextField));
+		img3.setIcon(getImage(img3TextField));
 	}
 
 	private void colorSelected(){
@@ -97,6 +99,9 @@ public class HueEdit extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        img1TextField = new javax.swing.JTextField();
+        img2TextField = new javax.swing.JTextField();
+        img3TextField = new javax.swing.JTextField();
 
         paleta.setMinimumSize(new java.awt.Dimension(1620, 1010));
 
@@ -132,11 +137,6 @@ public class HueEdit extends javax.swing.JFrame {
         });
 
         hueNumber.setText("10");
-        hueNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hueNumberActionPerformed(evt);
-            }
-        });
 
         showButton.setText("show");
         showButton.addActionListener(new java.awt.event.ActionListener() {
@@ -171,23 +171,8 @@ public class HueEdit extends javax.swing.JFrame {
         });
 
         redText.setText("0");
-        redText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                redTextActionPerformed(evt);
-            }
-        });
-        redText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                redTextKeyReleased(evt);
-            }
-        });
 
         greenText.setText("0");
-        greenText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                greenTextActionPerformed(evt);
-            }
-        });
 
         blueText.setText("0");
 
@@ -226,6 +211,12 @@ public class HueEdit extends javax.swing.JFrame {
             }
         });
 
+        img1TextField.setText("435");
+
+        img2TextField.setText("448");
+
+        img3TextField.setText("469");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,13 +225,6 @@ public class HueEdit extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(hueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 18, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -272,7 +256,7 @@ public class HueEdit extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 83, Short.MAX_VALUE)
                                 .addComponent(jButton6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4)
@@ -280,7 +264,20 @@ public class HueEdit extends javax.swing.JFrame {
                                 .addComponent(copyText, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton5)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(img1TextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                            .addComponent(img2TextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(img3TextField))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -318,7 +315,12 @@ public class HueEdit extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                    .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(img1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img3TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -331,33 +333,17 @@ public class HueEdit extends javax.swing.JFrame {
 		showHue();
    }//GEN-LAST:event_showButtonActionPerformed
 
-   private void hueNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hueNumberActionPerformed
-      // TODO add your handling code here:
-   }//GEN-LAST:event_hueNumberActionPerformed
-
    private void hueLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hueLabelMouseClicked
       Point p = evt.getPoint();
 		selected = huedit.getHueOn(p.x);
 		colorSelected();
    }//GEN-LAST:event_hueLabelMouseClicked
 
-   private void greenTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenTextActionPerformed
-      // TODO add your handling code here:
-   }//GEN-LAST:event_greenTextActionPerformed
-
    private void redSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_redSliderStateChanged
       int value = redSlider.getValue();
 		redText.setText(Integer.toString(value));
 		sliderChange();
    }//GEN-LAST:event_redSliderStateChanged
-
-   private void redTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redTextActionPerformed
-
-   }//GEN-LAST:event_redTextActionPerformed
-
-   private void redTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_redTextKeyReleased
-
-   }//GEN-LAST:event_redTextKeyReleased
 
    private void greenSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_greenSliderStateChanged
       int value = greenSlider.getValue();
@@ -460,8 +446,11 @@ public class HueEdit extends javax.swing.JFrame {
     private javax.swing.JLabel hueName;
     private javax.swing.JTextField hueNumber;
     private javax.swing.JLabel img1;
+    private javax.swing.JTextField img1TextField;
     private javax.swing.JLabel img2;
+    private javax.swing.JTextField img2TextField;
     private javax.swing.JLabel img3;
+    private javax.swing.JTextField img3TextField;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
