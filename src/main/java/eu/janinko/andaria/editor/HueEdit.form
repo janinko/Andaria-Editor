@@ -64,14 +64,6 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="hueLabel" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="img1" min="-2" pref="260" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="img2" min="-2" pref="259" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="img3" min="-2" pref="260" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
@@ -110,7 +102,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
                               <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
@@ -122,6 +114,23 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="img1" pref="260" max="32767" attributes="0"/>
+                          <Component id="img1TextField" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="img2" pref="259" max="32767" attributes="0"/>
+                          <Component id="img2TextField" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="img3" pref="260" max="32767" attributes="0"/>
+                          <Component id="img3TextField" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -169,7 +178,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="img2" max="32767" attributes="0"/>
                   <Component id="img1" max="32767" attributes="0"/>
-                  <Component id="img3" alignment="0" pref="238" max="32767" attributes="0"/>
+                  <Component id="img3" alignment="0" pref="199" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="img1TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="img2TextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="img3TextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -186,9 +201,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="10"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hueNumberActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="showButton">
       <Properties>
@@ -230,18 +242,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="redTextActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="redTextKeyReleased"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="greenText">
       <Properties>
         <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="greenTextActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="blueText">
       <Properties>
@@ -299,6 +304,21 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="img1TextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="435"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="img2TextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="448"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="img3TextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="469"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

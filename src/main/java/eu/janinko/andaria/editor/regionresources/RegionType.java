@@ -1,12 +1,9 @@
+
 package eu.janinko.andaria.editor.regionresources;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -18,33 +15,24 @@ public class RegionType {
 	private Map<Resource, Integer> resources = new HashMap<Resource, Integer>();
 	private int totalResources;
 
-	private Matcher mRegionType = Pattern.compile("^\\[regiontype ([a-z_0-9]+) ?([a-z_0-9]+)?].*").matcher("");
-	public RegionType(BufferedReader r, Map<String,Resource> res) throws IOException, IllegalStateException{
-		String line = r.readLine();
-		mRegionType.reset(line.toLowerCase());
-		if(!mRegionType.matches()){
-			throw new IllegalStateException("this is not regiontype");
-		}
-		name = mRegionType.group(1);
-		target = mRegionType.group(2);
-		
-		line = r.readLine();
-		while(line != null && !line.startsWith("[")){
-			String lline = line.toLowerCase();
-			try{
-				if(lline.contains("resources")){
-					parseResources(lline, res);
-				}else if(lline.contains("on=@")){
-					break;
-				}else{
-					System.err.println("unknown line: " + line );
-				}
-			}catch(IllegalStateException ex){
-				throw new IllegalStateException("Failed parsing line: " + line, ex);
-			}
+	private RegionType(String name) {
+		this.name = name;
+	}
 
-			line = r.readLine();
-		}
+	public String getName() {
+		return name;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public Map<Resource, Integer> getResources() {
+		return Collections.unmodifiableMap(resources);
+	}
+
+	public int getTotalResources() {
+		return totalResources;
 	}
 
 	public Map<String, Double> getMinResources(){
@@ -79,35 +67,29 @@ public class RegionType {
 		return ret;
 	}
 
-	public String getName() {
-		return name;
-	}
+	public static class Builder {
 
-	public String getTarget() {
-		return target;
-	}
+		private RegionType martix;
 
-	public Map<Resource, Integer> getResources() {
-		return Collections.unmodifiableMap(resources);
-	}
-
-	public int getTotalResources() {
-		return totalResources;
-	}
-
-	private Matcher mResource = Pattern.compile("^resources *= *([0-9]+) ([a-z_0-9]+).*").matcher("");
-	private void parseResources(String lline, Map<String, Resource> res) {
-		mResource.reset(lline); mResource.matches();
-		String rt = mResource.group(2);
-		Resource r = res.get(rt);
-		if(r == null){
-			throw new IllegalStateException("Resource not known: " + rt);
+		public Builder(String name) {
+			martix = new RegionType(name);
 		}
-		Integer num = Integer.parseInt(mResource.group(1));
-		totalResources += num;
-		if(resources.containsKey(r)){
-			num += resources.get(r);
+
+		public void setTarget(String target) {
+			martix.target = target;
 		}
-		resources.put(r, num);
+
+		public RegionType build() {
+			return martix;
+		}
+
+		public void addResources(Resource resource, Integer num) {
+			martix.totalResources += num;
+			if(martix.resources.containsKey(resource)){
+				num += martix.resources.get(resource);
+			}
+			martix.resources.put(resource, num);
+		}
+
 	}
 }

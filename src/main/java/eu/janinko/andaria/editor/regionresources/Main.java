@@ -63,7 +63,7 @@ public class Main {
 		}
 
 		Set<Area> interestingAreas = new HashSet<Area>();
-		for(Area a : m.getAreas()){
+		for(Area a : m.getAreas().values()){
 			if(a.getDefname().equals("a_lewan_ryzovani"))
 				interestingAreas.add(a);/*
 			if(bannedRegions.contains(a.getDefname()))

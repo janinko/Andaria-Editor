@@ -1,62 +1,24 @@
+
 package eu.janinko.andaria.editor.regionresources;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author Honza Brázdil <jbrazdil@redhat.com>
  */
 public class Area {
-	private String defname;
+	private final String defname;
 	private String name;
-	private Set<Rect> rects = new HashSet<Rect>();
-	private Set<String> events = new HashSet<String>();
+	private final Set<Area.Rect> rects = new HashSet<Area.Rect>();
+	private final Set<String> events = new HashSet<String>();
 
-	private Matcher mResource = Pattern.compile("^\\[areadef ([a-z_0-9]+)].*").matcher("");
-	public Area(BufferedReader r) throws IOException, IllegalStateException{
-		String line = r.readLine();
-		mResource.reset(line.toLowerCase());
-		if(!mResource.matches()){
-			throw new IllegalStateException("this is not areadef");
-		}
-		defname = mResource.group(1);
-
-		line = r.readLine();
-		while(line != null && !line.startsWith("[")){
-			try{
-				String lline = line.toLowerCase();
-				if(lline.startsWith("rect")){
-					parseRect(lline);
-				}else if(lline.startsWith("events")){
-					parseEvents(lline);
-				}else if(lline.startsWith("name")){
-					parseName(lline);
-				}else if(lline.startsWith("group")){
-					// ignore group
-				}else if(lline.startsWith("tag.")){
-					// ignore tags
-				}else if(lline.trim().isEmpty()){
-					// ignore empty line
-				}else{
-					System.err.println("unknown line: " + line );
-				}
-			}catch(IllegalStateException ex){
-				throw new IllegalStateException("Failed parsing line: " + line, ex);
-			}
-
-			line = r.readLine();
-		}
-		if(name == null || rects.isEmpty()){
-			throw new IllegalStateException("Not initialized all");
-		}
+	public Area(String defname) {
+		this.defname = defname;
 	}
-
+	
 	public String getDefname() {
 		return defname;
 	}
@@ -65,7 +27,7 @@ public class Area {
 		return name;
 	}
 
-	public Set<Rect> getRects() {
+	public Set<Area.Rect> getRects() {
 		return Collections.unmodifiableSet(rects);
 	}
 
@@ -73,33 +35,37 @@ public class Area {
 		return Collections.unmodifiableSet(events);
 	}
 
-	private Matcher mRect = Pattern.compile("^rect *= *([0-9]+),([0-9]+),([0-9]+),([0-9]+)(,0)?( *//.*)?").matcher("");
-	private void parseRect(String lline) {
-		mRect.reset(lline); mRect.matches();
-		rects.add(new Rect(Integer.parseInt(mRect.group(1)),
-						   Integer.parseInt(mRect.group(2)),
-						   Integer.parseInt(mRect.group(3)),
-						   Integer.parseInt(mRect.group(4))));
-	}
+	public static class Builder {
 
-	private Matcher mEvents = Pattern.compile("^events *= *([a-z_0-9, ]+)( *//.*)?").matcher("");
-	private void parseEvents(String lline) {
-		mEvents.reset(lline); mEvents.matches();
-		for(String s : mEvents.group(1).split(",")){
-			events.add(s.trim());
+		private Area martix;
+
+		public Builder(String defname) {
+			martix = new Area(defname);
+		}
+		
+		public void setName(String name) {
+			martix.name = name;
+		}
+
+		public Area build() {
+			if(martix.name == null || martix.rects.isEmpty()){
+				throw new IllegalStateException("Not initialized all ("+martix.defname+")");
+			}
+			return martix;
+		}
+
+		public void addRect(Rect rect) {
+			martix.rects.add(rect);
+		}
+
+		public void addEvent(String event) {
+			martix.events.add(event);
 		}
 	}
-
-	private Matcher mName = Pattern.compile("^name *= *([^/]+)( *//.*)?").matcher("");
-	private void parseName(String lline) {
-		mName.reset(lline); mName.matches();
-		name = mName.group(1);
-	}
-
-
+	
 	public static class Rect{
-		private int x1, y1;
-		private int x2, y2;
+		private final int x1, y1;
+		private final int x2, y2;
 
 		public Rect(int x1, int y1, int x2, int y2) {
 			this.x1 = Math.min(x1, x2);
@@ -122,6 +88,28 @@ public class Area {
 
 		public int getY2() {
 			return y2;
+		}
+
+		@Override
+		public int hashCode() {
+			int hash = 7;
+			hash = 11 * hash + this.x1;
+			hash = 11 * hash + this.y1;
+			hash = 11 * hash + this.x2;
+			hash = 11 * hash + this.y2;
+			return hash;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null) return false;
+			if (getClass() != obj.getClass()) return false;
+			final Rect other = (Rect) obj;
+			if (this.x1 != other.x1) return false;
+			if (this.y1 != other.y1) return false;
+			if (this.x2 != other.x2) return false;
+			if (this.y2 != other.y2) return false;
+			return true;
 		}
 	}
 }
