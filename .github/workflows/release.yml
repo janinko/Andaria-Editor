@@ -44,7 +44,7 @@ jobs:
 
     - name: Rename artifact for deployment (Windows)
       if: matrix.config.os == 'windows-latest'
-      run: ren target/jpackage/andaria-editor-*.exe target/jpackage/andaria-editor.exe
+      run: ren target\jpackage\andaria-editor-*.exe target\jpackage\andaria-editor.exe
 
     - name: Rename artifact for deployment (MacOS)
       if: matrix.config.os == 'macos-latest'
