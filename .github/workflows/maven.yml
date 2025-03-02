@@ -35,4 +35,13 @@ jobs:
       run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
-
+    
+    - name: Zip artifact for deployment
+      run: pushd target/jpackage/ && zip ../linux.zip ./andaria-editor -r && popd
+    
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux
+        path: target/linux.zip
+        retention-days: 5
