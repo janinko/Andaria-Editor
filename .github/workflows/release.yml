@@ -74,7 +74,7 @@ jobs:
           prerelease: true
 
       - name: Load artifacts
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           path: to-upload
           pattern: andaria-editor-*
