@@ -42,10 +42,6 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: pushd target/jpackage/ && zip andaria-editor-liunux.zip ./andaria-editor -r && popd
 
-    - name: Rename artifact for deployment (Windows)
-      if: matrix.config.os == 'windows-latest'
-      run: ren target\jpackage\andaria-editor-*.exe target\jpackage\andaria-editor.exe
-
     - name: Rename artifact for deployment (MacOS)
       if: matrix.config.os == 'macos-latest'
       run: mv target/jpackage/andaria-editor-*.pkg target/jpackage/andaria-editor.pkg
