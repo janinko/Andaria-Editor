@@ -1,12 +1,13 @@
 package eu.janinko.andaria.editor.regionresources;
 
-import eu.janinko.Andaria.ultimasdk.files.Statics;
-import eu.janinko.Andaria.ultimasdk.files.statics.Static;
+import eu.janinko.andaria.ultimasdk.files.Statics;
+import eu.janinko.andaria.ultimasdk.files.statics.Static;
 import eu.janinko.andaria.editor.regionresources.Area.Rect;
-import java.io.File;
-import java.io.FileInputStream;
+import eu.janinko.andaria.ultimasdk.UOFiles;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,11 +20,9 @@ import java.util.Set;
  */
 public class Main {
 	private static final String scpPath = "/home/jbrazdil/Ultima/andaria/sphere/";
-	private static final String uoPath = "/home/jbrazdil/Ultima/hra/";
+	private static final Path uoPath = Paths.get("/home/jbrazdil/Ultima/hra/");
 	private static final String regionTypePath = scpPath + "region_types.scp";
 	private static final String mapPath = scpPath + "map.scp";
-	private static final String staticsPath = uoPath + "statics0.mul";
-	private static final String statidxPath = uoPath + "staidx0.mul";
 
 
 	static final Set<String> bannedTypes = new HashSet<String>();
@@ -53,7 +52,8 @@ public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		RegionResources rr = new RegionResources(new FileReader(regionTypePath));
 		Map m = new Map(new FileReader(mapPath));
-		Statics statics = new Statics(new FileInputStream(statidxPath), new File(staticsPath));
+        
+		Statics statics = UOFiles.loadStaticsFromDir(uoPath);
 
 		Set<String> types = new HashSet<String>();
 		for(String rt : rr.getRegions().keySet()){

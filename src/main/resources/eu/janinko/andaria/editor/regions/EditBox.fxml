@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.janinko.andaria.editor.regions.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane id="GridPane" HBox.hgrow="SOMETIMES" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.janinko.andaria.editor.regions.EditBoxCTL">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="SOMETIMES" prefWidth="300.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label text="Defname">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <TextField fx:id="defnameInput" GridPane.columnIndex="1">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </TextField>
+        <Label text="Jméno" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <TextField fx:id="nameInput" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </TextField>
+        <Label text="Pozice" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <children>
+              <TextField fx:id="positionInput" editable="false" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </HBox.margin>
+              </TextField>
+            <Button mnemonicParsing="false" onAction="#selectPosition" text="Vybrat">
+               <HBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+        <Label text="\% deště" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        
+        <fx:include fx:id="rainchance" source="SliderLabel.fxml" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      
+        <Label text="\% zimy" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <fx:include fx:id="coldchance" source="SliderLabel.fxml" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Eventy" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <children>
+                <ListView fx:id="events" prefHeight="100.0" VBox.vgrow="SOMETIMES">
+                    <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                    </VBox.margin>
+                </ListView>
+                <HBox VBox.vgrow="NEVER">
+                    <children>
+                        <ComboBox fx:id="eventsCombo" prefWidth="150.0" />
+                        <Button fx:id="eventsButton" mnemonicParsing="false" text="Přidat" HBox.hgrow="NEVER" />
+                    </children>
+               <VBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <Label text="Tagy" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <TableView fx:id="tags" prefHeight="120.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <columns>
+                <TableColumn fx:id="tagNameCol" minWidth="50.0" prefWidth="126.0" text="Jméno" />
+                <TableColumn fx:id="tagValueCol" prefWidth="167.0" text="Hodnota" />
+            </columns>
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </TableView>
+        <Label text="Flagy" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <ListView fx:id="flags" prefHeight="180.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </ListView>
+        <Label text="Lokace" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <ListView fx:id="locations" prefHeight="110.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </ListView>
+    </children>
+</GridPane>
