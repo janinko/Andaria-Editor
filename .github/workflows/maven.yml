@@ -21,9 +21,9 @@ jobs:
     strategy:
       matrix:
         config:
-        - { os: macos-latest, type: EXE, name: macos }
         - { os: ubuntu-latest, type: IMAGE, name: linux }
-        - { os: windows-latest, type: PKG, name: windows }
+        - { os: windows-latest, type: EXE, name: windows }
+        - { os: macos-latest, type: PKG, name: macos }
 
     steps:
       - uses: actions/checkout@v4
