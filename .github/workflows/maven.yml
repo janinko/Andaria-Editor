@@ -29,7 +29,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package jpackage:jpackage --file pom.xml -Dmaven.repo.remote=https://maven.pkg.github.com/janinko/ultimasdk
+      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml -Dmaven.repo.remote=https://maven.pkg.github.com/janinko/ultimasdk
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
