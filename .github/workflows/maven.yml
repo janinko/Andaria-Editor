@@ -44,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.config.name }}
-          path: target/jpackage/andaria-editor
+          path: target/
           retention-days: 5
