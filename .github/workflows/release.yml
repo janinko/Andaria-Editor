@@ -39,7 +39,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
 
     - name: Zip artifact for deployment (Linux)
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.config.os == 'ubuntu-latest'
       run: pushd target/jpackage/ && zip andaria-editor-liunux.zip ./andaria-editor -r && popd
 
     - name: Rename artifact for deployment (MacOS)
