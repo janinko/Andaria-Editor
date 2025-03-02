@@ -17,10 +17,13 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.config.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        config:
+        - { os: macos-latest, type: EXE, name: macos }
+        - { os: ubuntu-latest, type: IMAGE, name: linux }
+        - { os: windows-latest, type: PKG, name: windows }
 
     steps:
       - uses: actions/checkout@v4
@@ -33,42 +36,14 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Set jpackage type
-        id: set_jpackage_type
-        run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-            echo "jpackage_type=IMAGE" >> $GITHUB_OUTPUT
-          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            echo "jpackage_type=EXE" >> $GITHUB_OUTPUT
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            echo "jpackage_type=PKG" >> $GITHUB_OUTPUT
-          fi
-
       - name: Build with Maven
-        run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml -Djpackage.type=${{ steps.set_jpackage_type.outputs.jpackage_type }}
+        run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml -Djpackage.type=${{ matrix.config.type }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: 'Upload Artifact (Linux)'
-        if: matrix.os == 'ubuntu-latest'
+      - name: 'Upload Artifact'
         uses: actions/upload-artifact@v4
         with:
-          name: linux
-          path: target/jpackage/andaria-editor
-          retention-days: 5
-
-      - name: 'Upload Artifact (Windows)'
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows
-          path: target/jpackage/andaria-editor
-          retention-days: 5
-
-      - name: 'Upload Artifact (macOS)'
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: macos
+          name: ${{ matrix.config.name }}
           path: target/jpackage/andaria-editor
           retention-days: 5
