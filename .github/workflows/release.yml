@@ -42,6 +42,11 @@ jobs:
       if: matrix.config.os == 'ubuntu-latest'
       run: pushd target/jpackage/ && zip andaria-editor-liunux.zip ./andaria-editor -r && popd
 
+    - name: Rename artifact for deployment (Windows)
+      if: matrix.config.os == 'windows-latest'
+      shell: pwsh
+      run: Rename-Item -Path target\jpackage\andaria-editor-*.exe -NewName andaria-editor.exe
+
     - name: Rename artifact for deployment (MacOS)
       if: matrix.config.os == 'macos-latest'
       run: mv target/jpackage/andaria-editor-*.pkg target/jpackage/andaria-editor.pkg
@@ -92,7 +97,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: to-upload/andaria-editor-linux/*
+          asset_path: to-upload/andaria-editor-linux/andaria-editor-liunux.zip
           asset_name: linux.zip
           asset_content_type: application/zip
 
@@ -102,7 +107,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: to-upload/andaria-editor-macos/*
+          asset_path: to-upload/andaria-editor-macos/andaria-editor.pkg
           asset_name: macos.pkg
           asset_content_type: application/x-newton-compatible-pkg
 
@@ -112,6 +117,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: to-upload/andaria-editor-windows/andaria-editor.pkg
+          asset_path: to-upload/andaria-editor-windows/andaria-editor.exe
           asset_name: windows.exe
           asset_content_type: application/vnd.microsoft.portable-executable
