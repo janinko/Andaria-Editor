@@ -80,31 +80,26 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>${javafx.version}</version>
-            <classifier>linux</classifier>
         </dependency>
         <!--
                 <dependency>
@@ -241,7 +236,17 @@
                 </configuration>
 
             </plugin>
-
+<plugin>
+            <groupId>com.github.akman</groupId>
+            <artifactId>jpackage-maven-plugin</artifactId>
+            <version>0.1.5</version>
+            <configuration>
+                <name>andaria-editor</name>
+                <type>IMAGE</type>
+                <mainjar>andaria-editor.jar</mainjar>
+                <input>${project.build.directory}/shade/</input>
+            </configuration>
+</plugin>
 
             <!-- Plugin na generovani module-info pro baliky co jej nemaji
             <plugin>
