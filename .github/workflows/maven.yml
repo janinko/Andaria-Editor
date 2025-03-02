@@ -17,31 +17,58 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Build with Maven
-      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-    
-    - name: Zip artifact for deployment
-      run: pushd target/jpackage/ && zip ../linux.zip ./andaria-editor -r && popd
-    
-    - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v4
-      with:
-        name: linux
-        path: target/linux.zip
-        retention-days: 5
+      - name: Set jpackage type
+        id: set_jpackage_type
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            echo "jpackage_type=IMAGE" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            echo "jpackage_type=EXE" >> $GITHUB_OUTPUT
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            echo "jpackage_type=PKG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build with Maven
+        run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml -Djpackage.type=${{ steps.set_jpackage_type.outputs.jpackage_type }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: 'Upload Artifact (Linux)'
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: target/jpackage/andaria-editor
+          retention-days: 5
+
+      - name: 'Upload Artifact (Windows)'
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: target/jpackage/andaria-editor
+          retention-days: 5
+
+      - name: 'Upload Artifact (macOS)'
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: target/jpackage/andaria-editor
+          retention-days: 5

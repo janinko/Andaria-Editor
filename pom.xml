@@ -25,6 +25,7 @@
         <javafx.version>17.0.12</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <lombok.version>1.18.36</lombok.version>
+        <jpackage.type>IMAGE</jpackage.type>
     </properties>
 
     <dependencyManagement>
@@ -252,7 +253,7 @@
             <version>0.1.5</version>
             <configuration>
                 <name>andaria-editor</name>
-                <type>IMAGE</type>
+                <type>${jpackage.type}</type>
                 <mainjar>andaria-editor.jar</mainjar>
                 <input>${project.build.directory}/shade/</input>
             </configuration>
