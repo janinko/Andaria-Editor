@@ -15,7 +15,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          - { os: ubuntu-latest, type: IMAGE, name: linux }
+          - { os: windows-latest, type: EXE, name: windows }
+          - { os: macos-latest, type: PKG, name: macos }
 
     steps:
     - uses: actions/checkout@v4
@@ -26,35 +32,85 @@ jobs:
         distribution: 'temurin'
         cache: maven
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Build with Maven
-      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml
+      run: mvn -B package jpackage:jpackage --file pom.xml -D"jpackage.type=${{ matrix.config.type }}"
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
     - name: Zip artifact for deployment
-      run: pushd target/jpackage/ && zip ../linux.zip ./andaria-editor -r && popd
+      if: matrix.os == 'ubuntu-latest'
+      run: pushd target/jpackage/ && zip andaria-editor-liunux.zip ./andaria-editor -r && popd
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'Upload Artifact (Linux)'
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v4
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Pre Release ${{ github.ref }}
-        draft: false
-        prerelease: true
+        name: andaria-editor-${{ matrix.config.name }}
+        path: target/jpackage/andaria-editor-liunux.zip
+        retention-days: 5
 
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'Upload Artifact (Other)'
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v4
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./target/linux.zip
-        asset_name: linux.zip
-        asset_content_type: application/zip
+        name: andaria-editor-${{ matrix.config.name }}
+        path: target/jpackage/*
+        retention-days: 5
 
+  release:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Pre Release ${{ github.ref }}
+          draft: false
+          prerelease: true
+
+      - name: Load artifacts
+        uses: actions/download-artifact@v1
+        with:
+          path: to-upload
+          pattern: andaria-editor-*
+
+      - name: list all
+        run: tree
+
+      - name: Upload Release Asset (Linux)
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: to-upload/andaria-editor-linux/*
+          asset_name: linux.zip
+          asset_content_type: application/zip
+
+      - name: Upload Release Asset (MacOS)
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: to-upload/andaria-editor-macos/*
+          asset_name: macos.pkg
+          asset_content_type: application/x-newton-compatible-pkg
+
+      - name: Upload Release Asset (Windows)
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: to-upload/andaria-editor-windows/*
+          asset_name: windows.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
