@@ -247,17 +247,17 @@
                 </configuration>
 
             </plugin>
-<plugin>
-            <groupId>com.github.akman</groupId>
-            <artifactId>jpackage-maven-plugin</artifactId>
-            <version>0.1.5</version>
-            <configuration>
-                <name>andaria-editor</name>
-                <type>${jpackage.type}</type>
-                <mainjar>andaria-editor.jar</mainjar>
-                <input>${project.build.directory}/shade/</input>
-            </configuration>
-</plugin>
+            <plugin>
+                <groupId>com.github.akman</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>0.1.5</version>
+                <configuration>
+                    <name>andaria-editor</name>
+                    <type>${jpackage.type}</type>
+                    <mainjar>andaria-editor.jar</mainjar>
+                    <input>${project.build.directory}/shade/</input>
+                </configuration>
+            </plugin>
 
             <!-- Plugin na generovani module-info pro baliky co jej nemaji
             <plugin>
