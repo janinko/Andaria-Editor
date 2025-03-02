@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleButton?>
+<?import eu.janinko.andaria.editor.components.AnimView?>
+<?import javafx.scene.control.ChoiceBox?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <AnimView fx:id="canvas"/>
+    <VBox>
+        <ToggleButton fx:id="animateButton" mnemonicParsing="false" text="Animovat">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </ToggleButton>
+        <ChoiceBox fx:id="actionChoice">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </ChoiceBox>
+        <ChoiceBox fx:id="directionChoice">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </ChoiceBox>
+    </VBox>
+</fx:root>
+

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/17.0.12"
+         xmlns:fx="http://javafx.com/fxml/1">
+
+    <Label text="Jméno:">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="0"  prefColumnCount="20">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+
+
+    <Label text="Weight:" GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Quality:" GridPane.rowIndex="2">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Quantity:" GridPane.rowIndex="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Animace:" GridPane.rowIndex="4">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Hue:" GridPane.rowIndex="5">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Value:" GridPane.rowIndex="6">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Height:" GridPane.rowIndex="7">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Unknown1:" GridPane.rowIndex="8">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Unknown2:" GridPane.rowIndex="9">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Unknown3:" GridPane.rowIndex="10">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label text="Unknown4:" GridPane.rowIndex="11">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </Label>
+
+    <TextField fx:id="weightField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="qualityField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="animationField" GridPane.columnIndex="1" GridPane.rowIndex="4" prefColumnCount="5">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="hueField" GridPane.columnIndex="1" GridPane.rowIndex="5" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="valueField" GridPane.columnIndex="1" GridPane.rowIndex="6" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="heightField" GridPane.columnIndex="1" GridPane.rowIndex="7" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="unknown1Field" GridPane.columnIndex="1" GridPane.rowIndex="8" prefColumnCount="5">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="unknown2Field" GridPane.columnIndex="1" GridPane.rowIndex="9" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="unknown3Field" GridPane.columnIndex="1" GridPane.rowIndex="10" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="unknown4Field" GridPane.columnIndex="1" GridPane.rowIndex="11" prefColumnCount="3">
+        <GridPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+        </GridPane.margin>
+    </TextField>
+
+
+    <Label fx:id="flagsLabel" text="Flagy" GridPane.columnIndex="4" GridPane.rowIndex="11">
+    </Label>
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+
+</fx:root>

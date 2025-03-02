@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.SVGPath?>
+<HBox fx:id="mainBox" prefHeight="900.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.janinko.andaria.editor.ui.ImageEditorController"
+      disable="true">
+    <fx:define>
+        <ToggleGroup fx:id="sceneGroup"/>
+    </fx:define>
+    <stylesheets>
+        <URL value="@components/style.css"/>
+    </stylesheets>
+    <VBox alignment="TOP_CENTER">
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="arts" selected="true">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava Artů"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/art.png"/>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="gumps">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava Gumpů"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/gump.png"/>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="paperdolls">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava equipmentu"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/shield.png" preserveRatio="true" requestedWidth="32" requestedHeight="32" />
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="hues">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava Hues"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/hue.png"/>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="animDefs">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava Anim defů"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true" >
+                    <Image url="@/img/anim.png" />
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <ToggleButton toggleGroup="$sceneGroup" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0"
+                      userData="cliloc">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Úprava Client Lokalicaze"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true" >
+                    <Image url="@/img/cliloc.svg" requestedWidth="32" requestedHeight="32" />
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <Separator>
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </Separator>
+        <Button mnemonicParsing="false" onAction="#pickHue" prefHeight="50.0" prefWidth="50.0">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Vybrat barvu (hues)"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/img/huePicker.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <ToggleButton fx:id="partialHueToggle"  selected="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0">
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+            <tooltip>
+                <Tooltip text="Přepnout partial hue"/>
+            </tooltip>
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/img/partialHue.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </ToggleButton>
+        <Separator orientation="VERTICAL" visible="false" VBox.vgrow="ALWAYS"/>
+        <Button mnemonicParsing="false" onAction="#open" prefHeight="50.0" prefWidth="50.0">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/open.svg" requestedWidth="32" requestedHeight="32"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Znovu načíst"/>
+            </tooltip>
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#reload" prefHeight="50.0" prefWidth="50.0">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/reload.svg" requestedWidth="32" requestedHeight="32"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Znovu načíst"/>
+            </tooltip>
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#diff"  prefHeight="50.0" prefWidth="50.0">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/diff.svg" requestedWidth="32" requestedHeight="32"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Zobrazit souhrn změn"/>
+            </tooltip>
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="50.0">
+            <graphic>
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/img/save.svg" requestedWidth="28" requestedHeight="28"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Uložit soubory"/>
+            </tooltip>
+            <VBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </VBox.margin>
+        </Button>
+    </VBox>
+    <GridPane fx:id="scene" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES"/>
+        </rowConstraints>
+    </GridPane>
+</HBox>

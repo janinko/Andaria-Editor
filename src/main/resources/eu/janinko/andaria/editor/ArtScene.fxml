@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.janinko.andaria.editor.components.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.scene.control.CheckBox?>
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="eu.janinko.andaria.editor.ui.ArtSceneController">
+   <ItemSelector fx:id="idList" />
+   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+      <HBox>
+         <Button mnemonicParsing="false" onAction="#load" prefWidth="100.0" text="Nahrát" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </HBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#remove" prefWidth="100.0" text="Odstranit"
+                 HBox.hgrow="ALWAYS">
+            <HBox.margin>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </HBox.margin>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#export" prefWidth="100.0" text="Exportovat"
+                 HBox.hgrow="ALWAYS">
+            <HBox.margin>
+               <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </HBox.margin>
+         </Button>
+      </HBox>
+      <ArtView fx:id="canvas">
+         <VBox.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+         </VBox.margin>
+      </ArtView>
+   </VBox>
+   <TiledataSidebar fx:id="tiledataSidebar" />
+</HBox>

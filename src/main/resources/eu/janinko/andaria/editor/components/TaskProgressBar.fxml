@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.stage.Stage?>
+
+<fx:root type="javafx.stage.Stage" title="Task progress" resizable="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <AnchorPane>
+                <ProgressBar fx:id="progressBar" prefHeight="30.0" prefWidth="300.0" progress="0.0"/>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</fx:root>

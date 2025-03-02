@@ -1,0 +1,20 @@
+open module andaria.editor {
+    requires com.opencsv;
+    requires eu.janinko.andaria.ultimasdk;
+    requires java.logging;
+    requires java.prefs;
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
+    requires javafx.swing;
+    requires javafxsvg;
+    requires static lombok;
+    requires uotools;
+    requires org.slf4j;
+
+    exports eu.janinko.andaria.editor.ui;
+    exports eu.janinko.andaria.editor.components;
+    exports eu.janinko.andaria.editor.misc;
+    exports eu.janinko.andaria.editor.windows;
+    exports eu.janinko.andaria.editor;
+}

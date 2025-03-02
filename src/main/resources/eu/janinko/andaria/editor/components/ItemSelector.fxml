@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         VBox.vgrow="ALWAYS">
+    <fx:define>
+        <ToggleGroup fx:id="filterGroup"/>
+    </fx:define>
+    <ListView fx:id="listView" minWidth="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+    <TextField fx:id="searchBar" promptText="🔍"/>
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Skrýt:"/>
+        <ToggleButton fx:id="hideMissing" toggleGroup="$filterGroup" text="chybějící">
+            <HBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </HBox.margin>
+        </ToggleButton>
+        <ToggleButton fx:id="hideExisting" toggleGroup="$filterGroup" text="existující">
+            <HBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            </HBox.margin>
+        </ToggleButton>
+    </HBox>
+</fx:root>

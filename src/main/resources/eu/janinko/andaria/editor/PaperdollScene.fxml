@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.janinko.andaria.editor.components.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="eu.janinko.andaria.editor.ui.PaperdollSceneController">
+    <ItemSelector fx:id="idList"/>
+    <VBox HBox.hgrow="SOMETIMES">
+
+
+        <HBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                <HBox>
+                    <Button mnemonicParsing="false" onAction="#loadM" prefWidth="100.0" text="Nahrát"
+                            HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                        </HBox.margin>
+                    </Button>
+                    <Button mnemonicParsing="false" onAction="#exportM" prefWidth="100.0" text="Exportovat"
+                            HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+                <GumpView fx:id="canvasM">
+                    <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                    </VBox.margin>
+                </GumpView>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                <HBox>
+                    <Button mnemonicParsing="false" onAction="#loadF" prefWidth="100.0" text="Nahrát"
+                            HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                        </HBox.margin>
+                    </Button>
+                    <Button mnemonicParsing="false" onAction="#exportF" prefWidth="100.0" text="Exportovat"
+                            HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+                <GumpView fx:id="canvasF">
+                    <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                    </VBox.margin>
+                </GumpView>
+            </VBox>
+            <AnimBox fx:id="animBox">
+
+                <HBox.margin>
+                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                </HBox.margin>
+            </AnimBox>
+        </HBox>
+        <Separator/>
+        <HBox>
+            <Label text="Předmět: ">
+                <HBox.margin>
+                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                </HBox.margin>
+            </Label>
+
+
+            <ChoiceBox fx:id="artSelector">
+                <VBox.margin>
+                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                </VBox.margin>
+            </ChoiceBox>
+        </HBox>
+        <HBox>
+            <ArtView fx:id="artCanvas">
+                <HBox.margin>
+                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                </HBox.margin>
+            </ArtView>
+
+            <TiledataSidebar fx:id="tiledataSidebar"/>
+        </HBox>
+    </VBox>
+
+
+</HBox>
