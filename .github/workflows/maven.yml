@@ -28,11 +28,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        server-id: github-ultimasdk # Value of the distributionManagement/repository/id field of the pom.xml
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
-        
+
     - name: Build with Maven
-      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml -Dmaven.repo.remote=https://maven.pkg.github.com/janinko/ultimasdk
+      run: mvn -s $GITHUB_WORKSPACE/settings.xml -B package jpackage:jpackage --file pom.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
